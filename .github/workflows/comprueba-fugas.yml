@@ -1,0 +1,23 @@
+name: Comprobador de fugas
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-leaks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Instalar Gitleaks
+      run: |
+        wget https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz
+        tar -xvf gitleaks-linux-amd64.tar.gz
+        sudo mv gitleaks /usr/local/bin/
+
+    - name: Escanear con Gitleaks
+      run: gitleaks detect --source . --report-path gitleaks-report.json --exit-code 1
