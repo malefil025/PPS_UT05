@@ -1,2 +1,3 @@
 Primer texto
 Segundo texto
+Línea escrita tras configurar clave GPG
